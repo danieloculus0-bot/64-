@@ -1,0 +1,29 @@
+{
+  "name": "64Δ Core Law",
+  "version": "0.1.0",
+  "board": {
+    "spaces": 64,
+    "golden_architecture": {
+      "productive": 25,
+      "protective": 15,
+      "responsive": 15,
+      "strategic_reserve": 9
+    }
+  },
+  "laws": [
+    "The board is a bounded causal system, not a game of invented options.",
+    "Human-facing complexity must remain chess-level or simpler.",
+    "Movement is permitted only by demonstrated causality.",
+    "A Pawn is an informed and honored frontline fighting leader who knowingly accepts the role.",
+    "Pawn strength and Pawn dependency are separate properties.",
+    "Pawns have finite capacity and may saturate.",
+    "Pawn activation may be programmed or discretionary within granted authority.",
+    "Assets and machines alter board state; they do not move as human actors.",
+    "External threats enter through defined interfaces.",
+    "Morale is a field condition mapped with the same seriousness as plant layout.",
+    "Every state-changing event must be traceable in time.",
+    "Identical board state and rules must produce the same set of legal actions.",
+    "Uncertainty must be represented explicitly, never as a magic move.",
+    "64Δ consumes analytical evidence such as SPC, capability, Pareto, FMEA, OTD, RMA, PM and audit data without pretending to replace their mathematics."
+  ]
+}
