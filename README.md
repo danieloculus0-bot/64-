@@ -2,40 +2,53 @@
 
 **Chess-adjacent operational command analysis for real organizations.**
 
-Six Sigma was neat. 64Δ asks a different question: given the whole operating system as it exists right now, what can actually move, what is exposed, and what action changes the board most?
+64Δ asks a simple question:
 
-## Core architecture
+> Given the operating system as it exists right now, who can actually affect what happens next?
 
-The board contains exactly 64 mapped spaces.
+## Playable prototype
 
-- 25 productive
-- 15 protective
-- 15 responsive
-- 9 strategic reserve
+The first browser prototype is now in `index.html`.
 
-That 25 / 15 / 15 / 9 structure is the current golden-ratio-inspired operating architecture.
+It currently supports:
 
-## Core law
+- a generic 8×8 board
+- any user-supplied map or layout as an image overlay
+- overlay pan, scale, opacity, and lock
+- named Pawns placed on the board
+- click-to-move Pawn play
+- square operating states
+- generic production variables attached to any square
+- browser save
+- JSON export/import
 
-64Δ is not chess and it is not a party game.
+There are intentionally **no chess movement rules** in the prototype. Pawn movement remains unrestricted until the causal movement law is mature enough to deserve enforcement.
 
-- Movement is based on demonstrated causality.
-- Pawns are informed, honored frontline fighting leaders.
-- A Pawn must know they are a Pawn.
-- Pawns have finite capacity and can saturate.
-- Pawn strength and organizational dependency on that Pawn are separate facts.
-- Pawn activation can be programmed or discretionary within granted authority.
-- Machines and assets change board state; they do not move like people.
-- External failures enter through defined interfaces.
-- Morale is mapped as seriously as plant layout.
-- Every important state change is traceable through events.
-- Identical state and rules must produce the same set of legal actions.
-- Uncertainty is explicit. There are no magic moves.
+The prototype is a single static HTML file with no dependencies. Download the repository and open `index.html` in a browser.
 
-The executable implementation of these rules begins in `src/sixty4delta/law.py`.
+## Human-facing base law
 
-## Design constraint
+The interface stays deliberately small:
 
-If the human-facing rules become harder to learn than chess, we fucked it up.
+- **Pawn** = real person.
+- **Square** = real operating space.
+- **Move** = actual ability to affect outcome.
+- **Everything else** = data.
 
-The engine may be sophisticated. The operating language must remain simple enough for real people to use under pressure.
+If the human-facing system becomes harder to learn than chess, we fucked it up.
+
+## Engine doctrine
+
+The deeper analytical engine can become sophisticated without burdening the player.
+
+Current research includes causal movement, human capacity and saturation, asset state, morale, external interfaces, traceable state changes, deterministic legal actions, and organizational stress testing.
+
+The experimental 25 / 15 / 15 / 9 golden-ratio architecture remains background research. It is **not** currently a required player rule or fixed board layout.
+
+Earlier executable doctrine experiments live under `src/sixty4delta/` and `doctrine/`. They should be treated as research code while the playable rules are simplified and pressure-tested.
+
+## Direction
+
+The board must remain universal.
+
+A specific organization supplies its own map, people, assets, processes, variables, constraints, and conditions. None of those should be hard-coded into 64Δ itself.
