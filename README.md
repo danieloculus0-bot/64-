@@ -52,3 +52,9 @@ Earlier executable doctrine experiments live under `src/sixty4delta/` and `doctr
 The board must remain universal.
 
 A specific organization supplies its own map, people, assets, processes, variables, constraints, and conditions. None of those should be hard-coded into 64Δ itself.
+
+## Repository audit note (2026-10-20)
+
+**Status: browser prototype plus independent Python research.** The static `index.html` implements the unconstrained visual board experience described above. The deterministic causal-move rules in `src/sixty4delta/law.py` and `tests/test_core_law.py` are separate experimental Python logic, **not yet enforced by the browser UI**. No GitHub Actions runs were present in the inspected workflow history. Verify the Python rules with `python -m unittest discover -s tests -v` and manually test the browser interface. 64Δ is an independent operational/game-design research track, not a live Axiom module.
+
+[Portfolio-wide repository audit](https://github.com/danieloculus0-bot/Axiom_Beta/blob/main/docs/PORTFOLIO_AUDIT_2026-10-20.md).
