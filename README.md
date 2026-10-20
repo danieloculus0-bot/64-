@@ -1,60 +1,35 @@
 # 64Δ
 
-**Chess-adjacent operational command analysis for real organizations.**
+Independent chess-adjacent operational mapping prototype and deterministic causal-movement research project. It is not a validated organizational optimizer or an Axiom production module.
 
-64Δ asks a simple question:
+## Current build state
 
-> Given the operating system as it exists right now, who can actually affect what happens next?
+**Reviewed:** 2026-10-20 · **Inspected main:** `ea1a7e88f841`.
 
-## Playable prototype
+**No GitHub Actions runs found** at inspection. Local functionality is described below; hosted CI is unverified.
 
-The first browser prototype is now in `index.html`.
+[Live workflow history](https://github.com/danieloculus0-bot/64-/actions) is the source for newer results.
 
-It currently supports:
+## Implemented features
 
-- a generic 8×8 board
-- any user-supplied map or layout as an image overlay
-- overlay pan, scale, opacity, and lock
-- named Pawns placed on the board
-- click-to-move Pawn play
-- square operating states
-- generic production variables attached to any square
-- browser save
-- JSON export/import
+- Static browser `index.html` maps an 8×8 board with person/Pawn placement, map overlay, state display and JSON export/import.
+- Separate Python causal-rule code under `src/sixty4delta/` and its tests explores stricter movement logic.
+- The browser UI intentionally allows unconstrained Pawn movement; the Python causal law is not enforced by the browser.
 
-There are intentionally **no chess movement rules** in the prototype. Pawn movement remains unrestricted until the causal movement law is mature enough to deserve enforcement.
+## Run or test
 
-The prototype is a single static HTML file with no dependencies. Download the repository and open `index.html` in a browser.
+Open `index.html` in a browser to use the independent prototype. For Python rule checks, run `python -m unittest discover -s tests -v` after installing the necessary project dependencies.
 
-## Human-facing base law
+## Boundaries
 
-The interface stays deliberately small:
+- No GitHub Actions CI run was visible at inspection; this is **untested in hosted CI**, not a passing workflow.
+- Chess-like board behavior is a modeling metaphor, not a mathematically verified organizational decision engine.
 
-- **Pawn** = real person.
-- **Square** = real operating space.
-- **Move** = actual ability to affect outcome.
-- **Everything else** = data.
+## Next step
 
-If the human-facing system becomes harder to learn than chess, we fucked it up.
+Add explicit causal-constraints-to-browser bridge and a hosted smoke test. Keep simulation clearly distinct from real organizational authority.
 
-## Engine doctrine
+## Documentation
 
-The deeper analytical engine can become sophisticated without burdening the player.
 
-Current research includes causal movement, human capacity and saturation, asset state, morale, external interfaces, traceable state changes, deterministic legal actions, and organizational stress testing.
-
-The experimental 25 / 15 / 15 / 9 golden-ratio architecture remains background research. It is **not** currently a required player rule or fixed board layout.
-
-Earlier executable doctrine experiments live under `src/sixty4delta/` and `doctrine/`. They should be treated as research code while the playable rules are simplified and pressure-tested.
-
-## Direction
-
-The board must remain universal.
-
-A specific organization supplies its own map, people, assets, processes, variables, constraints, and conditions. None of those should be hard-coded into 64Δ itself.
-
-## Repository audit note (2026-10-20)
-
-**Status: browser prototype plus independent Python research.** The static `index.html` implements the unconstrained visual board experience described above. The deterministic causal-move rules in `src/sixty4delta/law.py` and `tests/test_core_law.py` are separate experimental Python logic, **not yet enforced by the browser UI**. No GitHub Actions runs were present in the inspected workflow history. Verify the Python rules with `python -m unittest discover -s tests -v` and manually test the browser interface. 64Δ is an independent operational/game-design research track, not a live Axiom module.
-
-[Portfolio-wide repository audit](https://github.com/danieloculus0-bot/Axiom_Beta/blob/main/docs/PORTFOLIO_AUDIT_2026-10-20.md).
+- [Complete earlier README, including historical development notes](docs/archive/README_2026-10-20_before_refresh.md)
