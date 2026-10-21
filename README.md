@@ -18,7 +18,7 @@ The existing static 8×8 board, map overlay, movable Pawns and Python causal-law
 - **Scenario / what-if mode:** alternative positions do not change observed locations or create activity records.
 - **Manager-observed mode:** a manual movement closes the previous area session, starts another, and creates a timestamped event.
 - Sessions with employee, location, machine where uniquely identified, timestamps and event source.
-- CSV timeclock import, separate clocked-hour totals, and overlap-based reconciliation candidates.
+- CSV timeclock import, separate clocked-hour totals, and partial-interval coverage reconciliation candidates.
 - Reported completed units and standard minutes per unit with a provisional earned-standard/time-in-area ratio.
 - Browser-local save, JSON import/export and event ledger.
 
@@ -41,7 +41,7 @@ Employee matching currently uses the exact displayed name, and clock intervals m
 | --- | --- | --- |
 | Manager-observed hours | Elapsed time recorded between manually reported placements | Approximate area occupancy, not verified work or paid hours |
 | Imported clock hours | Sum of user-imported timeclock intervals | Only as complete as the imported CSV |
-| Sessions lacking clock match | Sessions without overlapping clock interval for the same name | Reconciliation candidates, not confirmed missing punches |
+| Sessions with clock coverage gaps | Observed sessions with more than five minutes not covered by imported clock intervals | Reconciliation candidates, not confirmed missing punches |
 | Provisional standard-time ratio | Reported units × entered standard minutes / observed time | Not validated productivity or efficiency |
 
 A production implementation must align the employee, job, machine, work order, shift, standards, breaks and source evidence before computing actual utilization or efficiency. Presence is not performance.
