@@ -11,7 +11,7 @@ const machineAt=s=>{const a=q.vars.filter(v=>v.square===s&&v.type==='Asset');ret
 const pawnSquare=p=>f().mode==='scenario'?(f().shadows[p.id]||p.square):p.square;
 const record=(p,type,from,to,at)=>f().events.push({id:uid(),pawnId:p.id,employee:p.name,type,from,to,at,basis:'manager-entry'});
 function endSession(p,at){const s=[...f().sessions].reverse().find(x=>x.pawnId===p.id&&x.end===null);if(s)s.end=Math.max(at,s.start)}
-function beginSession(p,s,at){f().sessions.push({id:uid(),pawnId:p.id,square:s,machine:machineAt(s),start:at,end:null,basis:'manager-entry'})}
+function beginSession(p,s,at){f().sessions.push({id:uid(),pawnId:p.id,employee:p.name,square:s,machine:machineAt(s),start:at,end:null,basis:'manager-entry'})}
 function movePawn(p,to){const a=f(),from=pawnSquare(p);if(from===to)return;
  if(a.mode==='scenario'){a.shadows[p.id]=to;msg('Scenario movement only. No time or work recorded.')}
  else {const now=Date.now();endSession(p,now);p.square=to;delete a.shadows[p.id];beginSession(p,to,now);record(p,'move',from,to,now);msg('Manager-observed placement saved. No clock punch created.')}
@@ -43,7 +43,7 @@ const ix=k=>headers.indexOf(k),data=[];for(const row of rows){const employee=row
 f().clock=data;refresh();msg(data.length+' timeclock intervals loaded. No punches changed.')}catch(err){msg(String(err.message||err))}};rd.readAsText(file);e.target.value=''};
 function refresh(){const a=f(),now=Date.now(),dur=s=>mins(s.start,s.end===null?now:s.end);
 const observed=a.sessions.reduce((x,s)=>x+dur(s),0),clock=a.clock.reduce((x,s)=>x+mins(s.start,s.end),0),earned=a.production.reduce((x,p)=>x+p.units*p.standardMinutes,0);
-function uncovered(s){const end=s.end??now,spans=a.clock.filter(c=>c.employee===nameOf(s.pawnId)&&c.start<end&&c.end>s.start).map(c=>[Math.max(s.start,c.start),Math.min(end,c.end)]).sort((x,y)=>x[0]-y[0]);let covered=0,until=s.start;for(const [start,stop] of spans){covered+=Math.max(0,stop-Math.max(start,until));until=Math.max(until,stop)}return Math.max(0,(end-s.start-covered)/60000)}
+function uncovered(s){const end=s.end??now,spans=a.clock.filter(c=>c.employee===(s.employee||nameOf(s.pawnId))&&c.start<end&&c.end>s.start).map(c=>[Math.max(s.start,c.start),Math.min(end,c.end)]).sort((x,y)=>x[0]-y[0]);let covered=0,until=s.start;for(const [start,stop] of spans){covered+=Math.max(0,stop-Math.max(start,until));until=Math.max(until,stop)}return Math.max(0,(end-s.start-covered)/60000)}
 const unmatched=a.sessions.filter(s=>uncovered(s)>5),gapHours=a.sessions.reduce((n,s)=>n+uncovered(s),0)/60;
 E('delta-mode').value=a.mode;E('delta-description').textContent=a.mode==='scenario'?'WHAT-IF: placements are not recorded as work.':'OBSERVED: every move creates a manager-reported location record, NOT a punch.';
 E('delta-observed').textContent=fmt(observed/60);E('delta-clock').textContent=fmt(clock/60);E('delta-eff').textContent=observed>0&&earned>0?fmt(100*earned/observed)+'%':'—';E('delta-gap').textContent=a.clock.length?String(unmatched.length):'—';
