@@ -1,35 +1,88 @@
-# 64Δ
+# 64Δ | Playable Facility Operations Board
 
-Independent chess-adjacent operational mapping prototype and deterministic causal-movement research project. It is not a validated organizational optimizer or an Axiom production module.
+**Move the pieces. See what changed. Find what the timeclock missed.**
 
-## Current build state
+64Δ is evolving from a chess-adjacent operational research prototype into a **facility digital twin** for workforce positioning, machine assignments, activity evidence, timeclock reconciliation and management what-if planning.
 
-**Reviewed:** 2026-10-20 · **Inspected main:** `ea1a7e88f841`.
+**Pawn** = person. **Square** = operating area. **Move** = actual or proposed placement. **Assets and variables** = machines, work, constraints and supporting evidence.
 
-**No GitHub Actions runs found** at inspection. Local functionality is described below; hosted CI is unverified.
+## Current implementation (October 20, 2026)
 
-[Live workflow history](https://github.com/danieloculus0-bot/64-/actions) is the source for newer results.
+Status: **browser proof of concept, not production HR, timekeeping, payroll or ERP software**.
 
-## Implemented features
+The existing static 8×8 board, map overlay, movable Pawns and Python causal-law research remain intact. The new facility.js extension supports:
 
-- Static browser `index.html` maps an 8×8 board with person/Pawn placement, map overlay, state display and JSON export/import.
-- Separate Python causal-rule code under `src/sixty4delta/` and its tests explores stricter movement logic.
-- The browser UI intentionally allows unconstrained Pawn movement; the Python causal law is not enforced by the browser.
+- Facility map overlay with opacity, scaling, positioning and locking.
+- Named movable Pawns, using tap/click movement and desktop drag/drop.
+- Equipment on squares as Asset variables, plus square operating states.
+- **Scenario / what-if mode:** alternative positions do not change observed locations or create activity records.
+- **Manager-observed mode:** a manual movement closes the previous area session, starts another, and creates a timestamped event.
+- Sessions with employee, location, machine where uniquely identified, timestamps and event source.
+- CSV timeclock import, separate clocked-hour totals, and overlap-based reconciliation candidates.
+- Reported completed units and standard minutes per unit with a provisional earned-standard/time-in-area ratio.
+- Browser-local save, JSON import/export and event ledger.
 
-## Run or test
+A manager can therefore move pieces to explore coverage, or explicitly record where someone was observed, including when the official timeclock lacks a corresponding record. **An observed location is not proof of actual paid work and never creates a payroll punch.** Discrepancies are review items.
 
-Open `index.html` in a browser to use the independent prototype. For Python rule checks, run `python -m unittest discover -s tests -v` after installing the necessary project dependencies.
+### Run
 
-## Boundaries
+Open index.html in a browser with facility.js alongside it. The prototype is client-side and needs no backend. Use a fictional or non-sensitive facility map, add machines with the Asset variable type, and add players. Switch modes before moving pieces.
 
-- No GitHub Actions CI run was visible at inspection; this is **untested in hosted CI**, not a passing workflow.
-- Chess-like board behavior is a modeling metaphor, not a mathematically verified organizational decision engine.
+Clock-import CSV requires these headers:
 
-## Next step
+    employee,clock_in,clock_out
+    Test Operator,2026-10-20T08:00:00-05:00,2026-10-20T16:00:00-05:00
 
-Add explicit causal-constraints-to-browser bridge and a hosted smoke test. Keep simulation clearly distinct from real organizational authority.
+Employee matching currently uses the exact displayed name, and clock intervals must overlap observed location sessions. Timestamps with explicit timezone offsets are recommended. All clock imports are read-only within the application and remain in browser data or exported JSON.
 
-## Documentation
+### Interpretation of the indicators
 
+| Metric | Meaning | Limitation |
+| --- | --- | --- |
+| Manager-observed hours | Elapsed time recorded between manually reported placements | Approximate area occupancy, not verified work or paid hours |
+| Imported clock hours | Sum of user-imported timeclock intervals | Only as complete as the imported CSV |
+| Sessions lacking clock match | Sessions without overlapping clock interval for the same name | Reconciliation candidates, not confirmed missing punches |
+| Provisional standard-time ratio | Reported units × entered standard minutes / observed time | Not validated productivity or efficiency |
 
-- [Complete earlier README, including historical development notes](docs/archive/README_2026-10-20_before_refresh.md)
+A production implementation must align the employee, job, machine, work order, shift, standards, breaks and source evidence before computing actual utilization or efficiency. Presence is not performance.
+
+## Target facility experience
+
+Management should be able to click a machine to inspect occupancy and qualified coverage, or click an employee to inspect assignments and evidence-backed machine time. In a separate sandbox, management can move employees between stations to compare staffing, throughput constraints, training eligibility and projected bottlenecks.
+
+The longer-term facility view can surface weighted compliance training, overdue corrective actions, equipment maintenance, quality trends, production utilization and operational risk. A serious safety blocker should stay visible even if an overall facility score is otherwise healthy.
+
+## Intended integration boundaries
+
+- **JERP / ERP:** source jobs, work orders, shift and labor transactions, employee IDs, timeclock and production records.
+- **64Δ:** playable spatial operational model, evidence reconciliation, placements, what-if scenarios and explainable scoring.
+- **BEAN:** interpretation, context-driven recommendations, variance investigation, and later low-priority learning.
+- **Axiom modules / PM-Tracker / quality tools:** shared UI links, qualifications, maintenance and quality signals.
+
+These are **proposed integrations**, not existing working connections.
+
+## HR privacy and correctness
+
+HR may eventually need access to pay, PTO, attendance, training and confidential personnel records. Such records require separate authorization, logging and retention controls. Bereavement, morale and sensitive personal circumstances must not be published on a general facility board or automatically turned into adverse employee scoring.
+
+This repository is public and the prototype has no enterprise authentication or secure multi-user backend. **Do not publish real employee identities, compensation, payroll records or confidential HR data in the repository or a public demo.**
+
+Never silently convert hypothetical movements, unverified observations or inferred occupancy into clocked work, payroll entries, disciplinary conclusions or legal compliance findings.
+
+## Preserved research
+
+The original chess-adjacent research, Python causal movement law, tests and doctrine remain in src/sixty4delta/, tests/ and doctrine/. The browser does not enforce the independent Python movement law, and its unconstrained movement is intentional for the current model.
+
+- [Archived README immediately before facility pivot](docs/archive/README_2026-10-20_pre_facility_pivot.md)
+- [Earlier full concept README](docs/archive/README_2026-10-20_before_refresh.md)
+
+## Build next
+
+1. Verify board behavior on desktop and touch, scenario isolation, event persistence, CSV import and JSON roundtrips.
+2. Define stable employee, facility, job, equipment, shift, event and provenance IDs.
+3. Add a private backend and first read-only ERP/timeclock adapter, without overriding authoritative records.
+4. Add machine/job-level actual production and labor efficiency from validated inputs.
+5. Add source-aware reconciliation workflows and configurable facility risk/compliance scores.
+6. Build secure role-specific HR views before allowing any sensitive human data into the system.
+
+**Design law:** The board must remain as easy to use as moving game pieces, while the underlying data must distinguish simulated, observed, imported and verified facts.
